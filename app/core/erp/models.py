@@ -1,22 +1,12 @@
 from django.db import models
 from datetime import datetime
 
+from core.erp.choices import gender_choices
+
 
 # Create your models here.
-class Type(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Nombre Tipos')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Tipo'
-        verbose_name_plural = 'Tipos'
-        ordering = ['id']
-
-
 class Category(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Nombres')
+    name = models.CharField(max_length=150, verbose_name='Nombre', unique=True)
 
     def __str__(self):
         return self.name
@@ -27,24 +17,67 @@ class Category(models.Model):
         ordering = ['id']
 
 
-class Employee(models.Model):
-    categ = models.ManyToManyField(Category)
-    type = models.ForeignKey(Type, on_delete=models.CASCADE)
-    names = models.CharField(max_length=150, verbose_name='Nombres')
-    cedula = models.CharField(max_length=10, unique=True, verbose_name='Cedula')
-    date_joined = models.DateField(default=datetime.now, verbose_name='Fecha de registro')
-    date_created = models.DateTimeField(auto_now=True, verbose_name='Fecha de creacion')
-    age = models.PositiveIntegerField(default=0)
-    salary = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
-    state = models.BooleanField(default=True)
-    avatar = models.ImageField(upload_to='avatar/%Y/%m/%d', null=True, blank=True)
-    cvitae = models.FileField(upload_to='cvitae/%Y/%m/%d', null=True, blank=True)
+class Product(models.Model):
+    cat = models.ForeignKey(Category, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=150, verbose_name='Nombre', unique=True)
+    imagen = models.ImageField(upload_to='product/%Y/%m/%d', null=True, blank=True)
+    pvp = models.DecimalField(default=0.00, max_digits=9, decimal_places=2)
 
     def __str__(self):
-        return self.names
+        return self.nombre
 
     class Meta:
-        verbose_name = 'Empleado'
-        verbose_name_plural = 'Empleados'
-        db_table = 'empleado'
+        verbose_name = 'Producto'
+        verbose_name_plural = 'Productos'
         ordering = ['id']
+
+
+class Client(models.Model):
+    nombres = models.CharField(max_length=150, verbose_name='Nombres')
+    apellidos = models.CharField(max_length=150, verbose_name='Apellidos')
+    dni = nombres = models.CharField(max_length=10, unique=True, verbose_name='Dni')
+    fecha_nac = models.DateField(default=datetime.now, verbose_name='Fecha de nacimiento')
+    direccion = models.CharField(max_length=150, null=True, blank=True, verbose_name='Direccion')
+    sexo = models.CharField(max_length=10, choices=gender_choices, default='male', verbose_name='Sexo')
+
+    def __str__(self):
+        return f"{self.nombres} {self.apellidos}"
+
+    class Meta:
+        verbose_name = 'Cliente'
+        verbose_name_plural = 'Clientes'
+        ordering = ['id']
+
+
+class Sale(models.Model):
+    id_cli = models.ForeignKey(Client, on_delete=models.CASCADE)
+    fecha_venta = models.DateField(default=datetime.now)
+    subtotal = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
+    iva = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
+    total = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.id_cli.name}"
+
+    class Meta:
+        verbose_name = 'Venta'
+        verbose_name_plural = 'Ventas'
+        ordering = ['id']
+
+
+class DetSale(models.Model):
+    id_venta = models.ForeignKey(Sale, on_delete=models.CASCADE)
+    id_prod = models.ForeignKey(Product, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=0)
+    precio = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
+    subtotal = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.id_prod.name}"
+
+    class Meta:
+        verbose_name = 'Detalle de Venta'
+        verbose_name_plural = 'Detalle de Ventas'
+        ordering = ['id']
+
+
