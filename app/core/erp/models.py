@@ -35,7 +35,7 @@ class Product(models.Model):
 class Client(models.Model):
     nombres = models.CharField(max_length=150, verbose_name='Nombres')
     apellidos = models.CharField(max_length=150, verbose_name='Apellidos')
-    dni = nombres = models.CharField(max_length=10, unique=True, verbose_name='Dni')
+    dni = models.CharField(max_length=10, unique=True, verbose_name='Dni')
     fecha_nac = models.DateField(default=datetime.now, verbose_name='Fecha de nacimiento')
     direccion = models.CharField(max_length=150, null=True, blank=True, verbose_name='Direccion')
     sexo = models.CharField(max_length=10, choices=gender_choices, default='male', verbose_name='Sexo')
