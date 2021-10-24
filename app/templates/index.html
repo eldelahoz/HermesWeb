@@ -1,32 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>
-    Mon premier web
-</h1>
-
-<h2>
-    {% if categorias %}
-        Si hay datos
-    {% endif %}
-</h2>
+{% extends 'base.html' %}
 
 {% block content %}
-<ul>
-    {% for categoria in categorias %}
-    <li>
-        {{ categoria }}
-    </li>
-    {% endfor %}
-</ul>
+    <p>
+        Hi
+    </p>
 {% endblock %}
-
-
-
-<p>{{ name }}</p>
-</body>
-</html>
