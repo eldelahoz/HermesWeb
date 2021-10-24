@@ -1,2 +1,4 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+app/config/__pycache__/
+app/core/erp/__pycache__/
