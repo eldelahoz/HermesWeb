@@ -1,0 +1,33 @@
+{% extends 'body.html' %}
+{% block content %}
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-search fa-fw"></i>
+                {{ title }}
+            </h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+                <thead>
+                {% block columns %}
+
+                {% endblock %}
+                </thead>
+                <tbody>
+                {% block rows %}
+
+                {% endblock %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary btn-flat">
+                <i class="far fa-plus-square"></i>Nuevo registro
+            </button>
+        </div>
+    </div>
+    <!-- /.card-body -->
+    </div>
+{% endblock %}

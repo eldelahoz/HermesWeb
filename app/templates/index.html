@@ -1,7 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'body.html' %}
 
 {% block content %}
     <p>
-        Hi
+    <ul>
+        {% for categoria in categorias %}
+            <li>{{ categoria.id }} // {{ categoria.name }}</li>
+        {% endfor %}
+    </ul>
     </p>
 {% endblock %}
