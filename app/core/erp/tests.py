@@ -1,6 +1,7 @@
 # from django.test import TestCase
 from config.wsgi import *
 from core.erp.models import Category
+
 # from core.erp.models import Type
 
 # Create your tests here.
@@ -20,8 +21,16 @@ from core.erp.models import Category
 
 # for i in Type.objects.filter(name__endswith='a')[2:]:
 #    print(i.name)
-print(Category.objects.all())
-if Category.objects.filter(name__in=['Bebidas']):
-    print("Si existe")
-else:
-    print("No existe")
+# print(Category.objects.all())
+# if Category.objects.filter(name__in=['Bebidas']):
+#     print("Si existe")
+# else:
+#     print("No existe")
+
+data = ['Leche y derivados', 'Carnes, pescados y huevos', 'Patatas, legumbres, frutos secos',
+        'Verduras y Hortalizas', 'Frutas', 'Cereales y derivados, azucar y dulces',
+        'Grasas, aceite y mantequilla']
+
+for i in data:
+    Category(name=i).save()
+    print(f"Registro Nº{Category.id}")

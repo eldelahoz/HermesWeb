@@ -1,4 +1,5 @@
 {% extends 'list.html' %}
+
 {% block columns %}
     <tr>
         <th>ID</th>
@@ -7,7 +8,7 @@
     </tr>
 {% endblock %}
 {% block rows %}
-    {% for categoria in categorias %}
+    {% for categoria in object_list %}
         <tr>
             <td>{{ categoria.id }}</td>
             <td>{{ categoria.name }}</td>
