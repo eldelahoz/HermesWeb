@@ -11,6 +11,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def toJSON(self):
+        item = {'id': self.id, 'name': self.name}
+        return item
+
     class Meta:
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
@@ -79,5 +83,3 @@ class DetSale(models.Model):
         verbose_name = 'Detalle de Venta'
         verbose_name_plural = 'Detalle de Ventas'
         ordering = ['id']
-
-

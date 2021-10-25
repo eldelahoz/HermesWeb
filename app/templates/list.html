@@ -34,7 +34,7 @@
             </table>
         </div>
         <div class="card-footer">
-            <button class="btn btn-primary btn-flat">
+            <button class="btn btn-primary btn-flat" id="btnRegistro">
                 <i class="far fa-plus-square"></i>Nuevo registro
             </button>
         </div>
@@ -47,6 +47,21 @@
     <script type="application/javascript">
       $(function () {
         $('#tablaCategory').DataTable();
-       });
+
+        $('#btnRegistro').on('click', function(){
+            $.ajax({
+                url: '{% url 'erp:category_list' %}',
+                method: "POST",
+                data: {id: 1},
+                dataType: 'json'
+            }).done(function (data){
+                console.log(data);
+            }).fail(function (jqXHR, textStatus, errorThrown){
+                alert(textStatus+': '+errorThrown);
+            }).always(function (data){
+
+            });
+        });
+      });
     </script>
 {% endblock %}
