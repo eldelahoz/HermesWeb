@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -40,6 +40,9 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado Categoria'
+        context['create_url'] = reverse_lazy('erp:category_create')
+        context['entity'] = 'Categorias'
+        context['list_url'] = reverse_lazy('erp:category_list')
         # context['products'] = Product.objects.all()
         return context
 
@@ -50,8 +53,20 @@ class CategoryCreateView(CreateView):
     template_name = 'category/create.html'
     success_url = reverse_lazy('erp:category_list')
 
+    # def post(self, request, *args, **kwargs):
+    #    form = CategoryForm(request.POST)
+    #    if form.is_valid():
+    #        form.save()
+    #        return HttpResponseRedirect(self.success_url)
+    #    self.object = None
+    #    context = self.get_context_data(**kwargs)
+    #   context['form'] = form
+    #   return render(request, self.template_name, context)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Creacion de Una Categoria'
+        context['entity'] = 'Categorias'
+        context['list_url'] = reverse_lazy('erp:category_list')
         # context['products'] = Product.objects.all()
         return context
