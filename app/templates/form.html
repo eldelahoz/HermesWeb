@@ -10,28 +10,22 @@
                 </h3>
             </div>
             <div class="card-body">
-                {% if form.errors %}
-                    <div class="alert alert-danger alert-dismissible">
+
+                    <div class="alert alert-danger alert-dismissible" id="alert-message" style="display:none">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        <ul>
-                            {% for fields in form %}
-                                {% for error in fields.errors %}
-                                    <li>
-                                        {{ error }}
-                                    </li>
-                                {% endfor %}
-                            {% endfor %}
+                        <ul id="detail-error">
+
                         </ul>
 
                     </div>
-                {% endif %}
+
 
 
 
                 <div class="form-group">
                     {% csrf_token %}
-
+                    <input type="hidden" name="action" value="{{ action }}">
                     {% for field in form.visible_fields %}
                         <label for="exampleInputEmail1">{{ field.label }}</label>
                         {{ field }}
@@ -45,5 +39,30 @@
             </div>
         </div>
     </form>
+    <script>
+        $('form').on('submit', function(e){
+            e.preventDefault();
+            var parameters = $(this).serializeArray();
+            $.ajax({
+                url: '{% url 'erp:category_create' %}',
+                method: "POST",
+                data: parameters,
+                dataType: 'json'
+            }).done(function (data){
+                if(!data.hasOwnProperty('error')){
+                    location.href = '{{ list_url }}';
+                    return false;
+                }
+                document.getElementById('alert-message').style.display = 'block';
+                document.getElementById('detail-error').innerHTML = alert_error(data.error);
+
+            }).fail(function (jqXHR, textStatus, errorThrown){
+                alert(textStatus+': '+errorThrown);
+            }).always(function (data){
+
+            });
+
+        });
+    </script>
 
 {% endblock %}
