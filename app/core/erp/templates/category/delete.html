@@ -1,0 +1,30 @@
+{% extends 'body.html' %}
+
+{% block content %}
+    <form method="post" action=".">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-plus fa-fw"></i>
+                    {{ title }}
+                </h3>
+            </div>
+            <div class="card-body">
+            {% csrf_token %}
+                <div class="alert alert-danger alert-dismissible">
+                  <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                    Esta seguro de eliminar el registro {{ object.id }}
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <button type='submit' class="btn btn-primary btn-flat" id="btnRegistro">
+                    <i class="far fa-save"></i>Si, aceptar
+                </button>
+                <a href="{% url 'erp:category_list' %}" type='submit' class="btn btn-primary btn-flat">
+                    <i class="far fa-save"></i>Cancelar
+                </a>
+            </div>
+        </div>
+    </form>
+{% endblock %}
