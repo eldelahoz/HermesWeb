@@ -19,21 +19,44 @@ def category_list(request):
     return render(request, 'category/list.html', data)
 
 
+class CategoryTest(ListView):
+    model = Category
+    template_name = 'category/list.html'
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            data['test'] = request.POST['test']
+            data['action'] = request.POST
+        except Exception as e:
+            data['error'] = str(e)
+        print(data)
+        return JsonResponse(data)
+
+
 class CategoryListView(ListView):
     model = Category
     template_name = 'category/list.html'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, args, kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         data = {}
         try:
-            data = Category.objects.get(pk=request.POST['id']).toJSON()
+            action = request.POST['action']
+            if action == 'searchdata':
+                data = []
+                for i in Category.objects.all():
+                    data.append(i.toJSON())
         except Exception as e:
             data['error'] = str(e)
-        return JsonResponse(data)
+        return JsonResponse(data, safe=False)
 
     # def get_queryset(self):
     #     return Category.objects.filter(name__startswith='L')
@@ -58,6 +81,7 @@ class CategoryCreateView(CreateView):
         data = {}
         try:
             action = request.POST['action']
+            print(action)
             if action == 'add':
                 form = self.get_form()
                 data = form.save()
@@ -125,6 +149,18 @@ class CategoryDeleteView(DeleteView):
     model = Category
     template_name = 'category/delete.html'
     success_url = reverse_lazy('erp:category_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            self.object.delete()
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

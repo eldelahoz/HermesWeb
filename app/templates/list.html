@@ -7,6 +7,10 @@
     <script src="{% static 'lib/DataTables-1.11.3/js/dataTables.bootstrap4.min.js' %}"></script>
     <script src="{% static 'lib/DataTables-1.11.3/plugins/Responsive-2.2.9/js/dataTables.responsive.min.js' %}"></script>
     <script src="{% static 'lib/DataTables-1.11.3/plugins/Responsive-2.2.9/js/responsive.bootstrap4.min.js' %}"></script>
+
+    {% block head_list %}
+
+    {% endblock %}
 {% endblock %}
 {% block content %}
     <div class="card card-default">
@@ -19,7 +23,7 @@
             </div>
         </div>
         <!-- /.card-header -->
-        <div class="card-body table-responsive p-0">
+        <div class="card-bodyl">
             <table class="table table-hover text-nowrap" id="tablaCategory">
                 <thead>
                 {% block columns %}

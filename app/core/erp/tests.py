@@ -28,7 +28,7 @@ import random
 #     print("No existe")
 
 data = ['Leche y derivados', 'Carnes, pescados y huevos', 'Patatas, legumbres, frutos secos',
-        'Verduras y Hortalizas', 'Frutas', 'Cereales y derivados, azucar y dulces',
+        'Verduras y Hortalizas', 'Frutas', 'Cereales y derivados, azucar y duºlces',
         'Grasas, aceite y mantequilla']
 
 
