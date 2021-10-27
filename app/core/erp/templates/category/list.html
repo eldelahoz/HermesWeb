@@ -13,9 +13,9 @@
             <td>{{ categoria.id }}</td>
             <td>{{ categoria.name }}</td>
             <td>
-                <button type="button" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i>
-                </button>
+                <a href="{% url 'erp:category_update' categoria.id %}" type="button" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'erp:category_delete' categoria.id %}" type="button" class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i>
+                </a>
             </td>
         </tr>
     {% endfor %}
