@@ -1,6 +1,6 @@
-# from django.test import TestCase
 from config.wsgi import *
 from core.erp.models import Category
+import random
 
 # from core.erp.models import Type
 
@@ -31,6 +31,12 @@ data = ['Leche y derivados', 'Carnes, pescados y huevos', 'Patatas, legumbres, f
         'Verduras y Hortalizas', 'Frutas', 'Cereales y derivados, azucar y dulces',
         'Grasas, aceite y mantequilla']
 
-for i in data:
-    Category(name=i).save()
-    print(f"Registro Nº{Category.id}")
+
+# letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+# for i in range(1, 6000):
+#     name = ''.join(random.choices(letter, k=5))
+#     while Category.objects.filter(name=name).exists():
+#         name = ''.join(random.choices(letter, k=5))
+#     Category(name=name).save()
+#     print(f"Guardado registro {i}")
