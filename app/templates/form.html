@@ -44,7 +44,7 @@
             e.preventDefault();
             var parameters = $(this).serializeArray();
             $.ajax({
-                url: '{% url 'erp:category_create' %}',
+                url: window.location.pathname,
                 method: "POST",
                 data: parameters,
                 dataType: 'json'
@@ -55,13 +55,11 @@
                 }
                 document.getElementById('alert-message').style.display = 'block';
                 document.getElementById('detail-error').innerHTML = alert_error(data.error);
-
             }).fail(function (jqXHR, textStatus, errorThrown){
                 alert(textStatus+': '+errorThrown);
             }).always(function (data){
 
             });
-
         });
     </script>
 

@@ -4,6 +4,6 @@ function alert_error(obj){
         html += '<li>' + key + ': ' + value + '</li>';
 
     });
-    console.log(html);
+//    console.log(html);
     return(html);
 }
