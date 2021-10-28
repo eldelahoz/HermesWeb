@@ -1,41 +1,11 @@
-from django.contrib.admin import action
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from core.erp.forms import CategoryForm
-from core.erp.models import Category, Product
-
-
-def category_list(request):
-    data = {
-        'title': 'Listado Categoria',
-        'categorias': Category.objects.all()
-    }
-    return render(request, 'category/list.html', data)
-
-
-class CategoryTest(ListView):
-    model = Category
-    template_name = 'category/list.html'
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
-            data['test'] = request.POST['test']
-            data['action'] = request.POST
-        except Exception as e:
-            data['error'] = str(e)
-        print(data)
-        return JsonResponse(data)
+from core.erp.models import Category
 
 
 class CategoryListView(ListView):
