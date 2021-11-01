@@ -27,9 +27,9 @@ import random
 # else:
 #     print("No existe")
 
-data = ['Leche y derivados', 'Carnes, pescados y huevos', 'Patatas, legumbres, frutos secos',
-        'Verduras y Hortalizas', 'Frutas', 'Cereales y derivados, azucar y duºlces',
-        'Grasas, aceite y mantequilla']
+# data = ['Leche y derivados', 'Carnes, pescados y huevos', 'Patatas, legumbres, frutos secos',
+#        'Verduras y Hortalizas', 'Frutas', 'Cereales y derivados, azucar y duºlces',
+#        'Grasas, aceite y mantequilla']
 
 
 # letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
