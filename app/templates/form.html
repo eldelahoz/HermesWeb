@@ -16,17 +16,14 @@
             </div>
             <div class="card-body">
 
-                    <div class="alert alert-danger alert-dismissible" id="alert-message" style="display:none">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        <ul id="detail-error">
+                <div class="alert alert-danger alert-dismissible" id="alert-message" style="display:none">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                    <ul id="detail-error">
 
-                        </ul>
+                    </ul>
 
-                    </div>
-
-
-
+                </div>
 
                 <div class="form-group">
                     {% csrf_token %}
@@ -45,7 +42,25 @@
         </div>
     </form>
     <script>
-        $('form').on('submit', function(e){
+        {% if form.errors %}
+            var errors = '';
+            document.getElementById('alert-message').style.display = 'block';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            document.getElementById('detail-error').innerHTML = '<li>' + errors + '</li>'
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+        /*$('form').on('submit', function(e){
             e.preventDefault();
             var parameters = $(this).serializeArray();
             $.ajax({
@@ -65,7 +80,7 @@
             }).always(function (data){
 
             });
-        });
+        });*/
     </script>
 
 {% endblock %}
