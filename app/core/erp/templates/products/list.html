@@ -1,0 +1,38 @@
+{% extends 'list.html' %}
+{% load static %}
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 10%;">Nro</th>
+        <th scope="col" style="width: 20%;">Nombre</th>
+        <th scope="col" style="width: 20%;">Categoria</th>
+        <th scope="col" style="width: 20%;">Imagen</th>
+        <th scope="col" style="width: 10%;">Precio</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+{% block rows %}
+{% for obj in object_list %}
+        <tr>
+            <td>{{ obj.id }}</td>
+            <td>{{ obj.nombre }}</td>
+            <td>{{ obj.cat.name }}</td>
+            <td class="text-center">
+                <img src="{{ obj.get_imagen }}" class="img-fluid d-block mx-auto" style="width: 20px; height: 20px;">
+            </td>
+            <td>{{ obj.pvp }}</td>
+            <td class="text-center">
+                <a href="{% url 'erp:product_update' obj.id %}" class="btn btn-warning btn-xs btn-flat">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'erp:product_delete' obj.id %}" class="btn btn-danger btn-xs btn-flat">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+
+{% block javascript %}
+
+{% endblock %}
