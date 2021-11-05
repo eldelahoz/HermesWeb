@@ -24,6 +24,7 @@ class CategoryListView(ListView):
             action = request.POST['action']
             if action == 'searchdata':
                 data = []
+                print(Category.objects.all())
                 for i in Category.objects.all():
                     data.append(i.toJSON())
         except Exception as e:
@@ -39,6 +40,7 @@ class CategoryListView(ListView):
         context['create_url'] = reverse_lazy('erp:category_create')
         context['entity'] = 'Categorias'
         context['list_url'] = reverse_lazy('erp:category_list')
+        context['tablaName'] = 'tablaCategory'
         # context['products'] = Product.objects.all()
         return context
 
