@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <form method="post" action=".">
+    <form method="post" action="." enctype="multipart/form-data">
         <div class="card card-default">
             <div class="card-header">
                 <h3 class="card-title">
@@ -38,50 +38,14 @@
                 <button type='submit' class="btn btn-primary btn-flat" id="btnRegistro">
                     <i class="far fa-save"></i>Nuevo registro
                 </button>
+                <a href="{{ list_url }}" class="btn btn-danger btn-flat">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
             </div>
         </div>
     </form>
     <script>
-        {% if form.errors %}
-            var errors = '';
-            document.getElementById('alert-message').style.display = 'block';
-            {% for field in form %}
-                {% for error in field.errors %}
-                    errors += '{{ error }}\n';
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                errors += '{{ error }}\n';
-            {% endfor %}
-            document.getElementById('detail-error').innerHTML = '<li>' + errors + '</li>'
-            Swal.fire({
-                title: 'Error!',
-                text: errors,
-                icon: 'error'
-            });
-        {% endif %}
-        $('form').on('submit', function(e){
-            e.preventDefault();
-            var parameters = $(this).serializeArray();
-            $.ajax({
-                url: window.location.pathname,
-                method: "POST",
-                data: parameters,
-                dataType: 'json'
-            }).done(function (data){
-                if(!data.hasOwnProperty('error')){
-                    location.href = '{{ list_url }}';
-                    return false;
-                }
-                document.getElementById('alert-message').style.display = 'block';
-                document.getElementById('detail-error').innerHTML = alert_error(data.error);
-            }).fail(function (jqXHR, textStatus, errorThrown){
-                alert(textStatus+': '+errorThrown);
-            }).always(function (data){
 
-            });
-        });
-        alert_jqueryconfirm();
     </script>
 
 {% endblock %}

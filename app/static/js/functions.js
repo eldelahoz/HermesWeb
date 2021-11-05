@@ -8,25 +8,42 @@ function alert_error(obj) {
     return (html);
 }
 
-function alert_jqueryconfirm() {
+function alert_jqueryconfirm(url, title, content, parameters, callback) {
     $.confirm({
-        title: 'Confirm!',
-        content: 'Simple confirm!',
+        title: title,
+        content: content,
+        icon: 'fa fa-info',
         buttons: {
-            confirm: function () {
-                $.alert('Confirmed!');
-            },
-            cancel: function () {
-                $.alert('Canceled!');
-            },
-            somethingElse: {
-                text: 'Something else',
-                btnClass: 'btn-blue',
-                keys: ['enter', 'shift'],
+            info: {
+                text: 'Si',
+                btnClass: 'btn-primary',
                 action: function () {
-                    $.alert('Something else?');
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: parameters,
+                        dataType: 'json'
+                    }).done(function (data) {
+                        if (!data.hasOwnProperty('error')) {
+                            callback();
+                            return false;
+                        }
+                        document.getElementById('alert-message').style.display = 'block';
+                        document.getElementById('detail-error').innerHTML = alert_error(data.error);
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        alert(textStatus + ': ' + errorThrown);
+                    }).always(function (data) {
+
+                    });
                 }
-            }
+            },
+            danger: {
+                text: 'No',
+                btnClass: 'btn-red',
+                action: function () {
+
+                }
+            },
         }
     });
 }
