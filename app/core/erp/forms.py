@@ -1,6 +1,6 @@
 from django.forms import *
 
-from core.erp.models import Category
+from core.erp.models import Category, Product
 
 
 class CategoryForm(ModelForm):
@@ -42,10 +42,35 @@ class CategoryForm(ModelForm):
             data['error'] = e
         return data
 
-    def clean(self):
-        cleanded = super().clean()
-        if len(cleanded['name']) < 50:
-            # self.add_error('name', 'Le faltan caracteres')
-            raise forms.ValidationError('Validacion test')
-        print(cleanded)
-        return cleanded
+    # def clean(self):
+    #    cleanded = super().clean()
+
+    # if len(cleanded['name']) < 50:
+    # self.add_error('name', 'Le faltan caracteres')
+    #    raise forms.ValidationError('Validacion test')
+    # print(cleanded)
+    #    return cleanded
+
+
+class ProductForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs.update({'class': 'form-control'})
+            form.field.widget.attrs.update({'autocomplete': 'off'})
+        self.fields['nombre'].widget.attrs.update({'autofocus': True})
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+
+
+    # def clean(self):
+    #    cleanded = super().clean()
+
+    # if len(cleanded['name']) < 50:
+    # self.add_error('name', 'Le faltan caracteres')
+    #    raise forms.ValidationError('Validacion test')
+    # print(cleanded)
+    #    return cleanded

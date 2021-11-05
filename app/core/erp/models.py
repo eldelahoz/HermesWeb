@@ -3,6 +3,7 @@ from datetime import datetime
 
 from django.forms import model_to_dict
 
+from config.settings import MEDIA_URL, STATIC_URL
 from core.erp.choices import gender_choices
 
 
@@ -38,6 +39,10 @@ class Product(models.Model):
         verbose_name_plural = 'Productos'
         ordering = ['id']
 
+    def get_imagen(self):
+        if self.imagen:
+            return f"{MEDIA_URL}{self.imagen}"
+        return f"{STATIC_URL}{'img/empty.png'}"
 
 class Client(models.Model):
     nombres = models.CharField(max_length=150, verbose_name='Nombres')
