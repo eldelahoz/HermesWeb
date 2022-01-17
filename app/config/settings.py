@@ -60,7 +60,8 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates',
+                 "/home/oeil/Documents/GitRepos/HermesWeb/app/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,6 +120,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     BASE_DIR / "core" / "erp" / "static",
+    "/home/oeil/Documents/GitRepos/HermesWeb/app/static"
 ]
 
 # Default primary key field type

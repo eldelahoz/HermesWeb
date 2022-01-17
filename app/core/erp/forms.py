@@ -1,9 +1,17 @@
+from django.core import validators
 from django.forms import *
-
+from django.forms import CharField
 from core.erp.models import Category, Product
 
 
+# def validate_nombre(value):
+#     if len(value) < 50:
+#         raise ValidationError('%(value)s le faltan', params={'value': value})
+
+
 class CategoryForm(ModelForm):
+    # name = CharField(validators=[validate_nombre])
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
@@ -23,7 +31,7 @@ class CategoryForm(ModelForm):
             ),
             'desc': Textarea(
                 attrs={
-                    'placeholder': 'Ingrese un nombre',
+                    'placeholder': 'Ingrese una descripcion',
                     'rows': 3,
                     'columns': 3
                 }
@@ -43,13 +51,13 @@ class CategoryForm(ModelForm):
         return data
 
     # def clean(self):
-    #    cleanded = super().clean()
-
-    # if len(cleanded['name']) < 50:
-    # self.add_error('name', 'Le faltan caracteres')
-    #    raise forms.ValidationError('Validacion test')
-    # print(cleanded)
-    #    return cleanded
+    #     cleanded = super().clean()
+    #
+    #     if len(cleanded['name']) < 50:
+    #         self.add_error('name', 'Le faltan caracteres')
+    #         raise forms.ValidationError('Validacion test')
+    #     print(cleanded)
+    #     return cleanded
 
 
 class ProductForm(ModelForm):
@@ -63,8 +71,6 @@ class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
-
-
 
     # def clean(self):
     #    cleanded = super().clean()

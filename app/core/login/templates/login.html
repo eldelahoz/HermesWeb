@@ -33,7 +33,7 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form action="." method="post">
+            <form action="" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ next }}">
                 <div class="input-group mb-3">

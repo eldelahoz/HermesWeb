@@ -39,7 +39,6 @@ class ProductCreateView(CreateView):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
-
     #    form = CategoryForm(request.POST)
     #    if form.is_valid():
     #        form.save()

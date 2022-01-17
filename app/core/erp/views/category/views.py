@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -24,7 +24,7 @@ class CategoryListView(ListView):
             action = request.POST['action']
             if action == 'searchdata':
                 data = []
-                print(Category.objects.all())
+                # print(Category.objects.all())
                 for i in Category.objects.all():
                     data.append(i.toJSON())
         except Exception as e:
@@ -49,7 +49,8 @@ class CategoryCreateView(CreateView):
     model = Category
     form_class = CategoryForm
     template_name = 'category/create.html'
-    success_url = reverse_lazy('erp:category_list')
+
+    # success_url = reverse_lazy('erp:category_list')
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -65,19 +66,9 @@ class CategoryCreateView(CreateView):
                 data = form.save()
             else:
                 data['error'] = 'No ha ingresado a ninguna opcion'
-                # data = Category.objects.get(pk=request.POST['id']).toJSON()
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
-
-    #    form = CategoryForm(request.POST)
-    #    if form.is_valid():
-    #        form.save()
-    #        return HttpResponseRedirect(self.success_url)
-    #    self.object = None
-    #    context = self.get_context_data(**kwargs)
-    #   context['form'] = form
-    #   return render(request, self.template_name, context)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
