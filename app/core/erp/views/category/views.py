@@ -148,7 +148,7 @@ class CategoryFormView(FormView):
     success_url = reverse_lazy('erp:category_list')
 
     def form_valid(self, form):
-        # print(form)
+        # lprint(form)
         return super().form_valid(form)
 
     def form_invalid(self, form):

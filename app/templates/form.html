@@ -47,30 +47,5 @@
             </div>
         </div>
     </form>
-    <script type="application/javascript">
-        $(function () {
-            $('#btnRegistro').on('click', function (e) {
-                e.preventDefault();
-                var parametres = $('form').serializeArray();
-                $.ajax({
-                    url: window.location.pathname,
-                    method: "POST",
-                    data: parametres,
-                    dataType: 'json'
-                }).done(function (data) {
-                    console.log(data)
-                    if (!data.hasOwnProperty('error')){
-                        location.href = '{{ list_url }}'
-                    }else{
-                        $('#alert-message').css('display', 'block');
-                        $('#alert-message ul')[0].innerHTML = alert_error(data.error);
-                    };
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert(textStatus + ': ' + errorThrown);
-                }).always(function (data) {
 
-                });
-            });
-        });
-    </script>
 {% endblock %}
