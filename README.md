@@ -14,4 +14,4 @@ Para la creacion del entorno virtual y los requerimientos use lo siguiente:
 - pip install -r requeriments.txt
 ## 🇺🇸 English:
 
-[requirements.txt]: https://github.com/eldelahoz/HermesWeb/blob/main/app/requirements/requirements.txt
+[requirements.txt]: app/requirements/requirements.txt
