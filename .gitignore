@@ -5,3 +5,4 @@ app/core/erp/__pycache__/
 app/core/erp/migrations/
 .env/
 .idea/
+app/media
