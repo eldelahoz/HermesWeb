@@ -58,17 +58,22 @@ class CategoryCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         data = {}
-        try:
-            action = request.POST['action']
-            print(action)
-            if action == 'add':
-                form = self.get_form()
-                data = form.save()
-            else:
-                data['error'] = 'No ha ingresado a ninguna opcion'
-        except Exception as e:
-            data['error'] = str(e)
+        data = request.POST
+        form = self.get_form()
+        data = form.save()
+        print(f"{data}\n{form}")
         return JsonResponse(data)
+        # try:
+        #     action = request.POST['action']
+        #     print(action)
+        #     if action == 'add':
+        #         form = self.get_form()
+        #         data = form.save()
+        #     else:
+        #         data['error'] = 'No ha ingresado a ninguna opcion'
+        # except Exception as e:
+        #     data['error'] = str(e)
+        # return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
