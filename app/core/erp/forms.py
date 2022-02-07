@@ -71,6 +71,10 @@ class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
+        labels = {
+            'cat': 'Categoria',
+            'pvp': 'Precio de venta'
+        }
 
     def save(self, commit=True):
         data = {}
