@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.erp.context_processors.nom_web'
             ],
         },
     },
@@ -137,3 +138,5 @@ LOGIN_URL = '/login/'
 MEDIA_ROOT = BASE_DIR / "media/"
 
 MEDIA_URL = '/media/'
+
+NOM_WEB_SITE = 'Hades'

@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('erp/', include('core.erp.urls')),
     path('', IndexPage.as_view(), name='index'),
-    path('login/', include('core.login.urls'))
+    path('login/', include('core.login.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
