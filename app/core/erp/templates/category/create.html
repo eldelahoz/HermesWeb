@@ -4,28 +4,9 @@
         $(function () {
             $('form').on('submit', (e) => {
                 e.preventDefault();
-                var parametres = $('form').serializeArray();
-                $.ajax({
-                    url: '{% url 'erp:category_create' %}',
-                    type: 'POST',
-                    data: parametres,
-                    dataType: 'json',
-                    success: function (datas, textStatus, jqXHR) {
-                        if (!datas.hasOwnProperty('error')) {
-                            location.href = '{{ list_url }}';
-                            return false;
-                        }
-                        document.getElementById("alert-message").setAttribute('style', 'display:hide');
-                        let html = ''
-                        Object.entries(datas.error).forEach(([key, val]) => {
-                            html += `<li>${key}: ${val}</li>`
-                        })
-                        document.getElementById("detail-error").innerHTML = html
-
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-
-                    }
+                var parameters = $('form').serializeArray();
+                alert_jqueryconfirm(window.location.pathname, 'Guardar!', '¿Esta seguro de guardar este registro?', parameters, function () {
+                    location.href = '{{ list_url }}';
                 });
             });
         });

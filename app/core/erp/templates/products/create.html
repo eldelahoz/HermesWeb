@@ -1,2 +1,13 @@
 {% extends 'form.html' %}
 
+{% block javascript %}
+    <script>
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            var parameters = new FormData(this);
+            alert_jqueryconfirm(window.location.href, 'Guardar!', '¿Esta seguro de guardar este registro?', parameters, function () {
+                location.href = '{{ list_url }}';
+            });
+        });
+    </script>
+{% endblock %}

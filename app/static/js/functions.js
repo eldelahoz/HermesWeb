@@ -22,7 +22,9 @@ function alert_jqueryconfirm(url, title, content, parameters, callback) {
                         url: url,
                         method: "POST",
                         data: parameters,
-                        dataType: 'json'
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
                     }).done(function (data) {
                         if (!data.hasOwnProperty('error')) {
                             callback();

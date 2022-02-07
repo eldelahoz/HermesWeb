@@ -44,6 +44,7 @@ class Product(models.Model):
             return f"{MEDIA_URL}{self.imagen}"
         return f"{STATIC_URL}{'img/empty.png'}"
 
+
 class Client(models.Model):
     nombres = models.CharField(max_length=150, verbose_name='Nombres')
     apellidos = models.CharField(max_length=150, verbose_name='Apellidos')
