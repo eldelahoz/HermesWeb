@@ -1,11 +1,15 @@
 function alert_error(obj) {
     var html = '';
-    $.each(obj, function (key, value) {
-        html += '<li>' + key + ': ' + value + '</li>';
-
-    });
+    if (typeof obj === 'object') {
+        $.each(obj, function (key, value) {
+            html += '<li>' + key + ': ' + value + '</li>';
+        });
 //    console.log(html);
-    return (html);
+        return (html);
+    } else if (typeof obj === 'string') {
+        html += '<li>' + obj + '</li>';
+        return (html);
+    }
 }
 
 function alert_jqueryconfirm(url, title, content, parameters, callback) {

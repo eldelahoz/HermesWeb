@@ -95,3 +95,13 @@ class ProductForm(ModelForm):
     #    raise forms.ValidationError('Validacion test')
     # print(cleanded)
     #    return cleanded
+
+
+class TestForm(Form):
+    categories = ModelChoiceField(queryset=Category.objects.all(), widget=Select(attrs={
+        'class': 'form-control js-example-basic-single'
+    }))
+
+    products = ModelChoiceField(queryset=Category.objects.none(), widget=Select(attrs={
+        'class': 'form-control'
+    }))
