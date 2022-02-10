@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+    <link href="{% static 'lib/select2-4.0.13/dist/css/select2.min.css' %}" rel="stylesheet"/>
+    <script src="{% static 'lib/select2-4.0.13/dist/js/select2.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <form method="post" action="" enctype="multipart/form-data">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-plus"></i>
+                    {{ title }}
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger alert-dismissible" id="alert-message" style="display:none">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                    <ul id="detail-error">
+
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label>Categorias:</label>
+                    {{ form.categories }}
+                </div>
+                <div class="form-group">
+                    <label>Productos:</label>
+                    {{ form.products }}
+                </div>
+            </div>
+
+        </div>
+    </form>
+{% endblock %}
+{% block javascript %}
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2();
+        });
+        $('#id_categories').on('change', function () {
+            var id = $(this).val();
+            var options = `<option value=''>${document.getElementById("id_categories")[0].text}</option>`;
+            if (id === "") {
+                $('#id_products').html(options);
+                return false;
+            }
+            $.ajax({
+                url: window.location.href,
+                method: "POST",
+                data: {
+                    'action': 'search_product_id',
+                    'id': id
+                },
+                dataType: 'json',
+            }).done(function (data) {
+                if (!data.hasOwnProperty('error')) {
+                    $.each(data, function (key, value) {
+                        options += `<option value='${key}'>${value}</option>`
+                    })
+                    return false;
+                }
+                document.getElementById('alert-message').style.display = 'block';
+                document.getElementById('detail-error').innerHTML = alert_error(data.error);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }).always(function (data) {
+                $('#id_products').html(options);
+            });
+        });
+    </script>
+{% endblock %}
