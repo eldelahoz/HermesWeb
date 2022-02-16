@@ -2,6 +2,7 @@
 {% load static %}
 {% block head %}
     <link href="{% static 'lib/select2-4.0.13/dist/css/select2.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'lib/select2-4.0.13/dist/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
     <script src="{% static 'lib/select2-4.0.13/dist/js/select2.min.js' %}"></script>
 {% endblock %}
 {% block content %}
@@ -38,7 +39,9 @@
 {% block javascript %}
     <script type="application/javascript">
         $(document).ready(function () {
-            $('.js-example-basic-single').select2();
+            $('.select2').select2({
+                theme: 'bootstrap4',
+            });
         });
         $('#id_categories').on('change', function () {
             var id = $(this).val();
@@ -56,10 +59,12 @@
                 },
                 dataType: 'json',
             }).done(function (data) {
+                console.log({'results': data});
                 if (!data.hasOwnProperty('error')) {
-                    $.each(data, function (key, value) {
-                        options += `<option value='${key}'>${value}</option>`
-                    })
+                    $('#id_products').html('').select2({
+                        theme: 'bootstrap4',
+                        data: data
+                    });
                     return false;
                 }
                 document.getElementById('alert-message').style.display = 'block';
@@ -67,7 +72,7 @@
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 alert(textStatus + ': ' + errorThrown);
             }).always(function (data) {
-                $('#id_products').html(options);
+                //$('#id_products').html(options);
             });
         });
     </script>

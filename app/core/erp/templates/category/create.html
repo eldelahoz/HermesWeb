@@ -5,6 +5,7 @@
             $('form').on('submit', (e) => {
                 e.preventDefault();
                 var parameters = $('form').serializeArray();
+                console.log(parameters)
                 alert_jqueryconfirm(window.location.pathname, 'Guardar!', '¿Esta seguro de guardar este registro?', parameters, function () {
                     location.href = '{{ list_url }}';
                 });

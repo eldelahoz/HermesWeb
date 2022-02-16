@@ -1,0 +1,92 @@
+{% extends 'list.html' %}
+{% load static %}
+{% block head_list %}
+    <script src="{% static 'category/js/list.js' %}"></script>
+{% endblock %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 10%;">Nro</th>
+        <th scope="col" style="width: 20%;">Nombre</th>
+        <th scope="col" style="width: 20%;">Apellidos</th>
+        <th scope="col" style="width: 20%;">Dni</th>
+        <th scope="col" style="width: 20%;">Fecha de nacimiento</th>
+        <th scope="col" style="width: 20%;">Sexo</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+{% block rows %}
+
+{% endblock %}
+{% block button_list %}
+    <div class="card-footer">
+        <a class="btn btn-primary btn-flat" id="btnRegistroClient">
+            <i class="far fa-plus-square"></i> Nuevo registro
+        </a>
+        <a href="{{ list_url }}" class="btn btn-success btn-flat">
+            <i class="fas fa-sync"></i> Actualizar
+        </a>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <!-- Modal -->
+    <div class="modal fade" id="myModalClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form method="post" action="" enctype="multipart/form-data" id="formClient">
+            <input type="hidden" name="action" value="{{ action }}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <input name="action" type="hidden" value="edit">
+                            <input name="id" id="id" type="hidden" value="0">
+                            {% for field in form.visible_fields %}
+                                <label for="{{ field.name }}">{{ field.label }}</label>
+                                {{ field }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-flat"><i class="far fa-plus-square"></i> Save
+                            changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Error -->
+    <div class="modal fade" id="myModalError" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger alert-dismissible" id="alert-message" style="display:none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                        <ul id="detail-error">
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

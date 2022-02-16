@@ -38,36 +38,19 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer">
-            <a href="{{ create_url }}" class="btn btn-primary btn-flat" id="btnRegistro">
-                <i class="far fa-plus-square"></i> Nuevo registro
-            </a>
-            <a href="{{ list_url }}" class="btn btn-success btn-flat">
-                <i class="fas fa-sync"></i> Actualizar
-            </a>
-        </div>
+        {% block button_list %}
+            <div class="card-footer">
+                <a href="{{ create_url }}" class="btn btn-primary btn-flat" id="btnRegistro">
+                    <i class="far fa-plus-square"></i> Nuevo registro
+                </a>
+                <a href="{{ list_url }}" class="btn btn-success btn-flat">
+                    <i class="fas fa-sync"></i> Actualizar
+                </a>
+            </div>
+        {% endblock %}
     </div>
 {% endblock %}
 
 {% block javascript %}
-    <script type="application/javascript">
-        $(function () {
-            // $('#tablaCategory').DataTable();
 
-            $('#btnRegistro').on('click', function () {
-                $.ajax({
-                    url: window.location.pathname,
-                    method: "POST",
-                    data: {id: 1},
-                    dataType: 'json'
-                }).done(function (data) {
-                    console.log(data);
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert(textStatus + ': ' + errorThrown);
-                }).always(function (data) {
-
-                });
-            });
-        });
-    </script>
 {% endblock %}

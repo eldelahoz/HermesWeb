@@ -1,7 +1,8 @@
+from datetime import datetime
+
 from django.core import validators
 from django.forms import *
-from django.forms import CharField
-from core.erp.models import Category, Product
+from core.erp.models import Category, Product, Client
 
 
 # def validate_nombre(value):
@@ -37,6 +38,7 @@ class CategoryForm(ModelForm):
                 }
             )
         }
+        exclude = ['user_updated', 'user_creation']
 
     def save(self, commit=True):
         data = {}
@@ -97,9 +99,39 @@ class ProductForm(ModelForm):
     #    return cleanded
 
 
+class ClientForm(ModelForm):
+    fecha_nac = DateField(initial=datetime.now,
+        widget=DateInput(format='%Y-%m-%d'),
+        input_formats=['%Y-%m-%d']
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs.update({'class': 'form-control'})
+            form.field.widget.attrs.update({'autocomplete': 'off'})
+        self.fields['nombres'].widget.attrs.update({'autofocus': True})
+
+    class Meta:
+        model = Client
+        fields = '__all__'
+
+    def save(self, commit=True):
+        data = {}
+        form = super()
+        try:
+            if form.is_valid():
+                form.save()
+            else:
+                data['error'] = form.errors
+        except Exception as e:
+            data['error'] = str(e)
+        return data
+
+
 class TestForm(Form):
     categories = ModelChoiceField(queryset=Category.objects.all(), widget=Select(attrs={
-        'class': 'form-control js-example-basic-single'
+        'class': 'form-control select2'
     }))
 
     products = ModelChoiceField(queryset=Category.objects.none(), widget=Select(attrs={

@@ -22,6 +22,7 @@ class CategoryListView(ListView):
         data = {}
         try:
             action = request.POST['action']
+            print(action)
             if action == 'searchdata':
                 data = []
                 # print(Category.objects.all())
@@ -51,29 +52,23 @@ class CategoryCreateView(CreateView):
     template_name = 'category/create.html'
 
     # success_url = reverse_lazy('erp:category_list')
-
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         data = {}
-        data = request.POST
-        form = self.get_form()
-        data = form.save()
-        print(f"{data}\n{form}")
+        try:
+            action = request.POST['action']
+            print(action)
+            if action == 'add':
+                form = self.get_form()
+                data = form.save()
+            else:
+                data['error'] = 'No ha ingresado a ninguna opcion'
+        except Exception as e:
+            data['error'] = str(e)
         return JsonResponse(data)
-        # try:
-        #     action = request.POST['action']
-        #     print(action)
-        #     if action == 'add':
-        #         form = self.get_form()
-        #         data = form.save()
-        #     else:
-        #         data['error'] = 'No ha ingresado a ninguna opcion'
-        # except Exception as e:
-        #     data['error'] = str(e)
-        # return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

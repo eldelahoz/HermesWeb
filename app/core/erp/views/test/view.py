@@ -21,8 +21,9 @@ class TestView(TemplateView):
         try:
             action = request.POST['action']
             if action == 'search_product_id':
+                data = []
                 for i in Product.objects.filter(cat_id=request.POST['id']):
-                    data.update({i.id: i.nombre})
+                    data.append({'id': i.id, 'text': i.nombre})
                 print(data)
             else:
                 data['error'] = 'No ha ingresado a ninguna opcion'

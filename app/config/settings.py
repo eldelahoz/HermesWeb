@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     # App
     'core.erp',
     'core.homepage',
-    'core.login'
+    'core.login',
+    'core.user'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'crum.CurrentRequestUserMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -140,3 +142,5 @@ MEDIA_ROOT = BASE_DIR / "media/"
 MEDIA_URL = '/media/'
 
 NOM_WEB_SITE = 'Hades'
+
+AUTH_USER_MODEL = 'user.User'
